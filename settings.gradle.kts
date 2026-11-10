@@ -7,9 +7,10 @@ include(
     "spec-core",
     "spec-upload",
     "spec-download",
+    "engine",
     "impl-local",
+    "impl-gdrive",
     "cli-upload",
-    "cli-download",
-    "impl-gdrive"
+    "cli-download"
 )
 

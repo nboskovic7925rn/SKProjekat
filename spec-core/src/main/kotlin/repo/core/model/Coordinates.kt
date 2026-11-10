@@ -3,7 +3,7 @@ package repo.core.model
 data class Coordinates(
     val organisation : String,
     val project : String,
-    val version : String
+    val version : Version
 
 ){
     override fun toString() = "$organisation:$project:$version"
@@ -14,7 +14,7 @@ data class Coordinates(
             require(parts.size == 3 && parts.none{it.isBlank()}){
                 "Ocekivan format - organizacija:projekat:verzija, dobijeno - $text"
             }
-            return Coordinates(parts[0], parts[1], parts[2])
+            return Coordinates(parts[0], parts[1], Version(parts[2]))
         }
     }
 }

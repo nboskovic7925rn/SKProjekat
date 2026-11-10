@@ -5,6 +5,7 @@ plugins {
 dependencies {
     implementation(project(":spec-download"))
     runtimeOnly(project(":impl-local"))
+    runtimeOnly(project(":impl-gdrive"))
 }
 
 application {
