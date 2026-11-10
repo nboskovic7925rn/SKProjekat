@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/cli-download" />
             <option value="$PROJECT_DIR$/cli-upload" />
+            <option value="$PROJECT_DIR$/impl-gdrive" />
             <option value="$PROJECT_DIR$/impl-local" />
             <option value="$PROJECT_DIR$/spec-core" />
             <option value="$PROJECT_DIR$/spec-download" />

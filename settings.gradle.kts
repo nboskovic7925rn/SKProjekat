@@ -9,6 +9,7 @@ include(
     "spec-download",
     "impl-local",
     "cli-upload",
-    "cli-download"
+    "cli-download",
+    "impl-gdrive"
 )
 
