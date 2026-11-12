@@ -20,11 +20,11 @@ abstract class StorageBackedDownloader : RepositoryDownloader{
     }
 
     override fun resolve(roots: List<Coordinates>, targetDir: File, strategy: ConflictStrategy): ResolutionResult {
-        downloader().resolve(roots, targetDir, strategy)
+        return downloader().resolve(roots, targetDir, strategy)
     }
 
     override fun resolveFromFile(listFile: File, targetDir: File, strategy: ConflictStrategy): ResolutionResult {
-        downloader().resolveFromFile(listFile, targetDir, strategy)
+        return downloader().resolveFromFile(listFile, targetDir, strategy)
     }
 
 }
