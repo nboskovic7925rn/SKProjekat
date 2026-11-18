@@ -16,14 +16,15 @@ import com.google.api.services.drive.DriveScopes
 import java.io.File
 
 object GoogleDriveAuth {
-    fun connect(): Drive {
+    fun connect(credentials: File, tokensDir: File): Drive {
+        require(credentials.isFile) {
+            "Fajl sa kredencijalima ne postoji: ${credentials.absolutePath}"
+        }
         val json = GsonFactory.getDefaultInstance()
-        val client = File(System.getenv("GOOGLE_DRIVE_CREDENTIALS") ?: "config/credentials.json")
-            .reader().use { GoogleClientSecrets.load(json, it).installed }
-            ?: error("Potreban je OAuth JSON za Desktop app.")
+        val client = credentials.reader().use { GoogleClientSecrets.load(json, it).installed }
+            ?: throw IllegalArgumentException("Potreban je OAuth JSON za Desktop app ('installed').")
         val transport = NetHttpTransport()
 
-        // Generički flow podržava PKCE; offline + consent omogućavaju dobijanje refresh tokena.
         val flow = AuthorizationCodeFlow.Builder(
             BearerToken.authorizationHeaderAccessMethod(), transport, json,
             GenericUrl(GoogleOAuthConstants.TOKEN_SERVER_URL),
@@ -31,11 +32,10 @@ object GoogleDriveAuth {
             client.clientId,
             GoogleOAuthConstants.AUTHORIZATION_SERVER_URL + "?access_type=offline&prompt=consent"
         ).setScopes(listOf(DriveScopes.DRIVE_FILE))
-            .setDataStoreFactory(FileDataStoreFactory(File(System.getenv("GOOGLE_DRIVE_TOKENS") ?: "tokens")))
+            .setDataStoreFactory(FileDataStoreFactory(tokensDir))
             .enablePKCE()
             .build()
 
-        // Pregledač vraća odgovor na ovaj računar; biblioteka čuva i obnavlja tokene.
         val receiver = LocalServerReceiver.Builder().setHost("127.0.0.1").setPort(-1).build()
         val credential = AuthorizationCodeInstalledApp(flow, receiver).authorize(client.clientId)
         return Drive.Builder(transport, json, credential).setApplicationName("SKProjekat1").build()
