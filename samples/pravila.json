@@ -1,0 +1,8 @@
+{
+  "allowedExtensions": ["jar", "zip"],
+  "scopes": [
+    { "name": "compile", "transitive": true },
+    { "name": "runtime", "transitive": true },
+    { "name": "test", "transitive": false }
+  ]
+}

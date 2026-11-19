@@ -1,43 +1,16 @@
 package repo.impl.local
 
-import repo.core.model.ComponentDescriptor
-import repo.core.model.Coordinates
-import repo.core.model.Dependency
-import repo.core.model.RepositoryConfig
-import repo.spec.upload.RepositoryUploader
+import repo.engine.Storage
+import repo.engine.StorageBackedUploader
 import java.io.File
 
-class LocalRepositoryUploader : RepositoryUploader {
+
+class LocalRepositoryUploader : StorageBackedUploader() {
     override val implName = "LOCAL"
-    override fun connect(params: Map<String, String>) {
-        TODO("Not yet implemented")
+    override fun createStorage(params: Map<String, String>): Storage {
+        val putanja = params["path"] ?: throw IllegalArgumentException("Nedostaje parametar path (putanja do foldera repozitorijuma)")
+        val adresa = File(putanja)
+        return LocalStorage(adresa)
     }
 
-    override fun initRepository() {
-        TODO("Not yet implemented")
-    }
-
-    override fun configure(configuration: RepositoryConfig) {
-        TODO("Not yet implemented")
-    }
-
-    override fun uploadComponent(file: File, descriptor: ComponentDescriptor) {
-        TODO("Not yet implemented")
-    }
-
-    override fun listOrganisations(): List<String> {
-        TODO("Not yet implemented")
-    }
-
-    override fun listProjects(organisation: String): List<String> {
-        TODO("Not yet implemented")
-    }
-
-    override fun listVersions(organisation: String, project: String): List<String> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getDependencies(coordinates: Coordinates): List<Dependency> {
-        TODO("Not yet implemented")
-    }
 }
