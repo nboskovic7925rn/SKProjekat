@@ -1,5 +1,12 @@
 plugins {
     kotlin("jvm") version "2.1.0" apply false
+    id("org.jetbrains.dokka") version "2.0.0"
+}
+
+dependencies {
+    dokka(project(":spec-core"))
+    dokka(project(":spec-upload"))
+    dokka(project(":spec-download"))
 }
 
 allprojects {
@@ -25,4 +32,7 @@ subprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
+}
+tasks.register("packageAll") {
+    dependsOn(":cli-upload:installDist", ":cli-download:installDist", "dokkaGenerate")
 }
