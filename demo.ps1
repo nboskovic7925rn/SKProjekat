@@ -3,6 +3,9 @@ $down = ".\cli-download\build\install\cli-download\bin\cli-download.bat"
 $repo = "$env:TEMP\demo-repo"
 $jar  = "samples\utils.jar"
 
+#Pokrece se sa ./demo.ps1 u Windows PowerShellu
+#Ne mora da se brise folder pri ponovnom pokretanju zbog komande Remove-Item
+
 function Step($tekst) { Write-Host "`n>>> $tekst" -ForegroundColor Cyan; Read-Host "Enter" | Out-Null }
 
 Remove-Item $repo, out-nearest, out-newest -Recurse -Force -ErrorAction SilentlyContinue

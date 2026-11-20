@@ -2,7 +2,9 @@ $up     = ".\cli-upload\build\install\cli-upload\bin\cli-upload.bat"
 $down   = ".\cli-download\build\install\cli-download\bin\cli-download.bat"
 $jar    = "samples\utils.jar"
 
-# Podesi putanju do tvog Google OAuth JSON fajla i naziv foldera na Drive-u
+#Naziv foldera treba da se menja pri novom pokretanju, jer stari ne moze da se brise
+#Pokrece se sa ./demo-gdrive.ps1 u Windows PowerShellu
+
 $creds  = "config\credentials.json"
 $folder = "SKProjekat1-DemoRepo"
 $tokens = "$env:TEMP\gdrive-tokens"
