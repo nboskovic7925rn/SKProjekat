@@ -52,9 +52,9 @@ class StorageUploader(private val storage: Storage){
         val knownScopes = config.scopes.map { it.name }.toSet()
         for(dep in descriptor.dependencies) {
             if(dep.scope !in knownScopes)
-                throw InvalidDependencyException("Scope {${dep.scope} nije podrzan u repozitorijumu")
+                throw InvalidDependencyException("Scope ${dep.scope} nije podrzan u repozitorijumu")
             if(!storage.exists(Layout.descriptor(dep.coordinates)))
-                throw MissingDependencyException("Zavisnost {$dep.coordinates} nije u repozitorijumu")
+                throw MissingDependencyException("Zavisnost ${dep.coordinates} nije u repozitorijumu")
         }
 
         file.inputStream().use { storage.write(Layout.file(c, descriptor.extension), it) }
@@ -79,7 +79,7 @@ class StorageUploader(private val storage: Storage){
     fun listVersions(organisation: String, project: String) : List<String> =
         storage.list("$organisation/$project").sortedBy { Version(it) }
 
-    fun getDependecies(coordinates: Coordinates) : List<Dependency>{
+    fun getDependencies(coordinates: Coordinates) : List<Dependency>{
         if(!storage.exists(Layout.descriptor(coordinates)))
             throw ComponentNotFoundException("Komponenta $coordinates ne postoji")
         val dto = storage.readJson(Layout.descriptor(coordinates), DescriptorDto::class.java)
