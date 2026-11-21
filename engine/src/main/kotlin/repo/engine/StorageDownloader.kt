@@ -18,7 +18,7 @@ class StorageDownloader(private val storage: Storage) {
 
     private fun transitiveScopes() : Set<String>{
         if(!storage.exists((Layout.CONFIG)))
-            throw RepositoryException("Repozitorijum nije definisan (nedostaje {$Layout.CONFIG}).")
+            throw RepositoryException("Repozitorijum nije definisan (nedostaje ${Layout.CONFIG}).")
         return storage.readJson(Layout.CONFIG, ConfigDto::class.java)
             .scopes.filter {it.transitive}.map { it.name }.toSet()
     }

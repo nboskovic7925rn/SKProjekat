@@ -6,7 +6,6 @@ import repo.core.model.Dependency
 import repo.core.model.RepositoryConfig
 import repo.spec.upload.RepositoryUploader
 import java.io.File
-import java.io.FileDescriptor
 
 abstract class StorageBackedUploader : RepositoryUploader {
 
@@ -34,6 +33,6 @@ abstract class StorageBackedUploader : RepositoryUploader {
 
     override fun listVersions(organisation: String, project: String): List<String> = uploader().listVersions(organisation, project)
 
-    override fun getDependencies(coordinates: Coordinates): List<Dependency> = uploader().getDependecies(coordinates)
+    override fun getDependencies(coordinates: Coordinates): List<Dependency> = uploader().getDependencies(coordinates)
 
 }
